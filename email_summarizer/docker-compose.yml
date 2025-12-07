@@ -19,13 +19,16 @@ services:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: ""
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__WEBSERVER__SECRET_KEY: "super-secret-key-for-email-project"   # 👈 add this
+      AIRFLOW__WEBSERVER__SECRET_KEY: "super-secret-key-for-email-project"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./:/opt/airflow/project
     ports:
       - "8080:8080"
-    command: webserver
+    command: >
+      bash -c "pip install -r /opt/airflow/project/requirements.txt &&
+           airflow webserver"
+
 
   airflow-scheduler:
     image: apache/airflow:2.10.2
@@ -34,11 +37,13 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW__WEBSERVER__SECRET_KEY: "super-secret-key-for-email-project"   # 👈 same value
+      AIRFLOW__WEBSERVER__SECRET_KEY: "super-secret-key-for-email-project"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./:/opt/airflow/project
-    command: scheduler
+    command: >
+      bash -c "pip install -r /opt/airflow/project/requirements.txt &&
+              airflow scheduler"
 
 volumes:
   postgres-db-volume:
