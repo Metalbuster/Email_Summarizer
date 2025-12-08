@@ -1,0 +1,16 @@
+text,true_label,predicted_label,confidence
+SUBJECT: Tax Document Update BODY: Request for updated tax documentation.,Finance,Finance,0.31121155529121536
+SUBJECT: Safety Module Reminder BODY: Reminder to complete safety training.,HR,Finance,0.29119230200930485
+SUBJECT: Headset Not Working BODY: Phone headset is not functioning.,Support,Support,0.42194486253673064
+SUBJECT: Financial Statement Update BODY: Updated financial statement attached.,Finance,Finance,0.28495237473126994
+SUBJECT: RFP Preparation BODY: Preparing draft response for RFP.,Sales,Sales,0.30178253851687603
+SUBJECT: Sales Presentation BODY: Need help preparing sales presentation.,Sales,Sales,0.3055842449987494
+SUBJECT: Promotion Inquiry BODY: Follow-up on promotion eligibility.,HR,HR,0.3067922510460025
+SUBJECT: Partnership Inquiry BODY: Client interested in partnership.,Sales,Sales,0.3640050814603717
+SUBJECT: Email Sync Issue BODY: Experiencing issues with email syncing.,Support,Support,0.33672659700220536
+SUBJECT: Budget Adjustment BODY: Request for project budget adjustment.,Finance,Finance,0.32278153902371814
+SUBJECT: Reimbursement Receipts BODY: Submitting receipts for reimbursement.,Finance,HR,0.2909216330023734
+SUBJECT: WiFi Drops BODY: Wi-Fi signal drops frequently.,Support,Support,0.26594500624604495
+SUBJECT: Proposal Follow-up BODY: Following up on proposal sent last week.,Sales,Sales,0.27493774374604574
+SUBJECT: Company Handbook BODY: Please send the updated employee handbook.,HR,HR,0.3136432331199242
+SUBJECT: Orientation Feedback BODY: Feedback regarding the HR orientation.,HR,Sales,0.3139023545668646
