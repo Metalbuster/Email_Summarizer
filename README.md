@@ -18,6 +18,7 @@ Clean modular project architecture
 This project is structured to resemble a real production AI system and is suitable for AI Engineer / Data Engineer roles.
 
 🧱 Project Architecture
+
 Incoming emails (raw CSV)
         ↓
 prepare_data.py  → clean + split data
@@ -34,6 +35,7 @@ FastAPI API
 Airflow DAG automates entire pipeline daily
 
 ✨ Features
+
 ✔ Email Classification
 TF-IDF vectorization + Logistic Regression
 Predicts HR, Finance, Support, Sales
@@ -62,6 +64,7 @@ Postgres (metadata DB)
 FastAPI app can also be containerized and deployed separately
 
 🛠️ Installation
+
 Clone the repository
 git clone https://github.com/Metalbuster/Email_Summarizer.git
 cd Email_Summarizer
@@ -102,6 +105,7 @@ DAG: email_ml_pipeline
 Trigger and monitor your ML pipeline.
 
 ✨ Example API request
+
 POST /predict
 {
   "subject": "Request for document review",
