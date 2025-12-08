@@ -19,20 +19,20 @@ This project is structured to resemble a real production AI system and is suitab
 
 🧱 Project Architecture
 
-Incoming emails (raw CSV)
-        ↓
-prepare_data.py  → clean + split data
-        ↓
-train_model.py  → train TF-IDF + Logistic Regression classifier
-        ↓
-evaluate_model.py  → compute precision/recall/F1
-        ↓
-Saved model (joblib)
-        ↓
-FastAPI API
+1.Incoming emails (raw CSV)
+
+2.prepare_data.py  → clean + split data
+
+3.train_model.py  → train TF-IDF + Logistic Regression classifier
+
+4.evaluate_model.py  → compute precision/recall/F1
+
+5.Saved model (joblib)
+
+6.FastAPI API
 /predict → return label + confidence + summary (LLM or fallback)
-        ↓
-Airflow DAG automates entire pipeline daily
+
+7.Airflow DAG automates entire pipeline daily
 
 ✨ Features
 
