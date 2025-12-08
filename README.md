@@ -33,33 +33,6 @@ FastAPI API
         ↓
 Airflow DAG automates entire pipeline daily
 
-📁 Project Structure
-project/
-│
-├── data/
-│   ├── raw/emails.csv
-│   └── processed/{train,val,test,test_prediction}.csv
-│
-├── scripts/
-│   ├── prepare_data.py
-│   ├── train_model.py
-│   └── evaluate_model.py
-│
-├── models/
-│   └── email_classifier.joblib
-│
-├── app/
-│   ├── main.py
-│   ├── model_loader.py
-│   └── schemas.py
-│
-├── dags/
-│   └── email_pipeline_dag.py
-│
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
-
 ✨ Features
 ✔ Email Classification
 TF-IDF vectorization + Logistic Regression
