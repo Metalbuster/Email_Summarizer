@@ -47,7 +47,6 @@ def llm_summary(subject: str, body: str) -> str:
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        # Don’t crash the API, just log and fall back
         print("LLM summary error:", e)
         return simple_summary(subject, body)
 
