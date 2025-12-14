@@ -2,8 +2,6 @@ import os
 from fastapi import FastAPI
 from .schemas import EmailRequest, PredictionResponse
 from .model_loader import classifier
-
-#LLM summarization (OpenAI)
 from dotenv import load_dotenv
 from openai import OpenAI
 
