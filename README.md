@@ -87,6 +87,7 @@ Open Swagger UI:
 http://127.0.0.1:8000/docs
 
 🚀 Running Airflow
+
 After you have run 
 python scripts/prepare_data.py
 python scripts/train_model.py
