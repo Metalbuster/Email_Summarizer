@@ -1,11 +1,13 @@
 import os
-from fastapi import FastAPI
+import torch
+from fastapi import FastAPI, Query
 from .schemas import EmailRequest, PredictionResponse
-from .model_loader import classifier
+from .model_loader import classifier, load_bert_model
 from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 client = None
@@ -15,7 +17,6 @@ else:
     print("WARNING: OPENAI_API_KEY not set. Summaries will be simple heuristics.")
 
 app = FastAPI(title="Smart Email Triage & Summarization API")
-
 
 def simple_summary(subject: str, body: str) -> str:
     short_body = " ".join(body.split()[:40])
@@ -49,6 +50,15 @@ def llm_summary(subject: str, body: str) -> str:
     except Exception as e:
         print("LLM summary error:", e)
         return simple_summary(subject, body)
+    
+bert_model, bert_tokenizer, device = load_bert_model()
+
+LABEL_MAP = {
+    0: "HR",
+    1: "Finance",
+    2: "Support",
+    3: "Sales",
+}
 
 @app.get("/health")
 def health():
@@ -56,7 +66,29 @@ def health():
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict_email(req: EmailRequest):
-    text = (req.subject or "") + " " + (req.body or "")
+
+    text = f"SUBJECT: {req.subject or ''} BODY: {req.body or ''}"
     label, confidence = classifier.predict_with_proba(text)
     summary = llm_summary(req.subject, req.body)
+
     return PredictionResponse(label=label, confidence=confidence, summary=summary)
+
+@app.post("/predict_bert", response_model=PredictionResponse)
+def predict_bert(req: EmailRequest):
+    
+    text = f"SUBJECT: {req.subject or ''} BODY: {req.body or ''}".strip()
+    summary = llm_summary(req.subject, req.body)
+    inputs = bert_tokenizer(
+        text,
+        truncation=True,
+        padding=True,
+        return_tensors="pt"
+    ).to(device)
+
+    with torch.no_grad():
+        outputs = bert_model(**inputs)
+        probs = torch.softmax(outputs.logits, dim=1)
+        pred_id = torch.argmax(probs, dim=1).item()
+        confidence = probs.max().item()
+
+    return PredictionResponse(label=LABEL_MAP[pred_id], confidence=round(confidence, 4), summary=summary)

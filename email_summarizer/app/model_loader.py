@@ -1,8 +1,12 @@
 from pathlib import Path
 import joblib
 import numpy as np
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
+from pathlib import Path
 
 MODEL_PATH = Path("models/email_classifier.joblib")
+BERT_MODEL_PATH = Path("models/bert_email_classifier")
 
 
 class EmailClassifier:
@@ -21,5 +25,17 @@ class EmailClassifier:
         confidence = float(proba[idx])
         return label, confidence
 
-
 classifier = EmailClassifier()
+
+def load_bert_model(device: str = None):
+    
+    if device is None:
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    tokenizer = AutoTokenizer.from_pretrained(BERT_MODEL_PATH)
+    model = AutoModelForSequenceClassification.from_pretrained(BERT_MODEL_PATH)
+
+    model.to(device)
+    model.eval()
+
+    return model, tokenizer, device
