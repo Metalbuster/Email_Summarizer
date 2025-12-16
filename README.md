@@ -70,23 +70,28 @@ git clone https://github.com/Metalbuster/Email_Summarizer.git
 cd Email_Summarizer
 Then, you can modify email.csv to have any data you want for training.
 
-🚀 Running the project
+🚀 Running the project for FAST API
 
-1️⃣ Run ML pipeline locally
+1.Run ML pipeline locally
 Install requirements:
 pip install -r requirements.txt
 
-Run:
+2.Run:
 python scripts/prepare_data.py
 python scripts/train_model.py
 python scripts/evaluate_model.py
 
-2️⃣ Run FastAPI API
+3.Run FastAPI API
 uvicorn app.main:app --reload
 Open Swagger UI:
 http://127.0.0.1:8000/docs
 
-3️⃣ Running Airflow with Docker Compose
+🚀 Running Airflow
+After you have run 
+python scripts/prepare_data.py
+python scripts/train_model.py
+python scripts/evaluate_model.py
+
 Start Airflow services:
 docker compose up -d
 
